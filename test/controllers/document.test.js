@@ -436,16 +436,16 @@ describe('Document Controller', () => {
       }).throw('Kuzzle.document.mCreate: collection is required');
     });
 
-    it('should throw an error if the "documents" argument is not provided', () => {
+    it('should throw an error if the "body" argument is not provided', () => {
       should(function () {
         kuzzle.document.mCreate('index', 'collection', undefined, options);
-      }).throw('Kuzzle.document.mCreate: documents must be an array');
+      }).throw('Kuzzle.document.mCreate: body must be an object');
     });
 
     it('should throw an error if the "documents" argument is not an array', () => {
       should(function () {
-        kuzzle.document.mCreate('index', 'collection', {_id: 'document-id', body: {foo: 'bar'}}, options);
-      }).throw('Kuzzle.document.mCreate: documents must be an array');
+        kuzzle.document.mCreate('index', 'collection', {documents: {_id: 'document-id', body: {foo: 'bar'}}}, options);
+      }).throw('Kuzzle.document.mCreate: body.documents must be an array');
     });
 
     it('should call document/mCreate query and return a Promise which resolves the created documents', () => {
@@ -459,7 +459,7 @@ describe('Document Controller', () => {
       };
       kuzzle.query.resolves({result});
 
-      return kuzzle.document.mCreate('index', 'collection', [{_id: 'document-id', body: {foo: 'bar'}}], options)
+      return kuzzle.document.mCreate('index', 'collection', {documents: [{_id: 'document-id', body: {foo: 'bar'}}]}, options)
         .then(res => {
           should(kuzzle.query)
             .be.calledOnce()
@@ -487,7 +487,7 @@ describe('Document Controller', () => {
       };
       kuzzle.query.resolves({result});
 
-      return kuzzle.document.mCreate('index', 'collection', [{_id: 'document-id', body: {foo: 'bar'}}], {refresh: true})
+      return kuzzle.document.mCreate('index', 'collection', {documents: [{_id: 'document-id', body: {foo: 'bar'}}]}, {refresh: true})
         .then(res => {
           should(kuzzle.query)
             .be.calledOnce()
@@ -518,16 +518,16 @@ describe('Document Controller', () => {
       }).throw('Kuzzle.document.mCreateOrReplace: collection is required');
     });
 
-    it('should throw an error if the "documents" argument is not provided', () => {
+    it('should throw an error if the "body" argument is not provided', () => {
       should(function () {
         kuzzle.document.mCreateOrReplace('index', 'collection', undefined, options);
-      }).throw('Kuzzle.document.mCreateOrReplace: documents must be an array');
+      }).throw('Kuzzle.document.mCreateOrReplace: body must be an object');
     });
 
     it('should throw an error if the "documents" argument is not an array', () => {
       should(function () {
-        kuzzle.document.mCreateOrReplace('index', 'collection', {_id: 'document-id', body: {foo: 'bar'}}, options);
-      }).throw('Kuzzle.document.mCreateOrReplace: documents must be an array');
+        kuzzle.document.mCreateOrReplace('index', 'collection', {documents: {_id: 'document-id', body: {foo: 'bar'}}}, options);
+      }).throw('Kuzzle.document.mCreateOrReplace: body.documents must be an array');
     });
 
     it('should call document/mCreateOrReplace query and return a Promise which resolves the created documents', () => {
@@ -541,7 +541,7 @@ describe('Document Controller', () => {
       };
       kuzzle.query.resolves({result});
 
-      return kuzzle.document.mCreateOrReplace('index', 'collection', [{_id: 'document-id', body: {foo: 'bar'}}], options)
+      return kuzzle.document.mCreateOrReplace('index', 'collection', {documents: [{_id: 'document-id', body: {foo: 'bar'}}]}, options)
         .then(res => {
           should(kuzzle.query)
             .be.calledOnce()
@@ -569,7 +569,7 @@ describe('Document Controller', () => {
       };
       kuzzle.query.resolves({result});
 
-      return kuzzle.document.mCreateOrReplace('index', 'collection', [{_id: 'document-id', body: {foo: 'bar'}}], {refresh: true})
+      return kuzzle.document.mCreateOrReplace('index', 'collection', {documents: [{_id: 'document-id', body: {foo: 'bar'}}]}, {refresh: true})
         .then(res => {
           should(kuzzle.query)
             .be.calledOnce()

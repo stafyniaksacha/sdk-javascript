@@ -165,21 +165,24 @@ class DocumentController {
       .then(response => response.result);
   }
 
-  mCreate (index, collection, documents, options = {}) {
+  mCreate (index, collection, body, options = {}) {
     if (!index) {
       throw new Error('Kuzzle.document.mCreate: index is required');
     }
     if (!collection) {
       throw new Error('Kuzzle.document.mCreate: collection is required');
     }
-    if (!Array.isArray(documents)) {
-      throw new Error('Kuzzle.document.mCreate: documents must be an array');
+    if (typeof body !== 'object' || body === null) {
+      throw new Error('Kuzzle.document.mCreate: body must be an object');
+    }
+    if (!Array.isArray(body.documents)) {
+      throw new Error('Kuzzle.document.mCreate: body.documents must be an array');
     }
 
     const request = {
       index,
       collection,
-      body: {documents},
+      body,
       controller: 'document',
       action: 'mCreate',
       refresh: options.refresh
@@ -190,21 +193,24 @@ class DocumentController {
       .then(response => response.result);
   }
 
-  mCreateOrReplace (index, collection, documents, options = {}) {
+  mCreateOrReplace (index, collection, body, options = {}) {
     if (!index) {
       throw new Error('Kuzzle.document.mCreateOrReplace: index is required');
     }
     if (!collection) {
       throw new Error('Kuzzle.document.mCreateOrReplace: collection is required');
     }
-    if (!Array.isArray(documents)) {
-      throw new Error('Kuzzle.document.mCreateOrReplace: documents must be an array');
+    if (typeof body !== 'object' || body === null) {
+      throw new Error('Kuzzle.document.mCreateOrReplace: body must be an object');
+    }
+    if (!Array.isArray(body.documents)) {
+      throw new Error('Kuzzle.document.mCreateOrReplace: body.documents must be an array');
     }
 
     const request = {
       index,
       collection,
-      body: {documents},
+      body,
       controller: 'document',
       action: 'mCreateOrReplace',
       refresh: options.refresh
