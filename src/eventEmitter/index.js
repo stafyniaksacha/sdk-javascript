@@ -106,7 +106,7 @@ class KuzzleEventEmitter {
     return this;
   }
 
-  emit (eventName, ...payload) {
+  async emit (eventName, ...payload) {
     const listeners = this._events[eventName];
 
     if (listeners === undefined) {
@@ -116,7 +116,7 @@ class KuzzleEventEmitter {
     const onceListeners = [];
 
     for (const listener of listeners) {
-      listener.fn(...payload);
+      await listener.fn(...payload);
 
       if (listener.once) {
         onceListeners.push(listener.fn);
